@@ -1,7 +1,7 @@
 from airflow                  import DAG
 from airflow.operators.python import PythonOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
-from datetime                 import datetime, timedelta
+from datetime                 import datetime
 
 """
 trigger setting example
@@ -9,14 +9,14 @@ trigger setting example
 
 dag1 = DAG(
     dag_id = 'HelloWorld',
-    start_date = datetime.today() - timedelta(days=1),
+    start_date = datetime(2023,06.28),
     catchup=False,
     tags=['example'],
     schedule = '0 2 * * *')
 
 dag2 = DAG(
     dag_id = 'GoodBye',
-    start_date = datetime.today() - timedelta(days=1),
+    start_date = datetime(2023,06.28),
     catchup=False,
     tags=['example'],
     schedule = '0 2 * * *')
@@ -46,4 +46,4 @@ trigger = TriggerDagRunOperator(
     dag = dag1
 )
 
-print_hello >> print_goodbye
+print_hello >> trigger
